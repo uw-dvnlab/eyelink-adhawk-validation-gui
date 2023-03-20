@@ -3,8 +3,13 @@ function plotSac(saccades, saccadesP, saccadesM, plt, handles, lim_lines)
     if ~isempty(saccades)
         for i=1:size(saccades,1)
             sacOn = saccades(i,1);
-            sacLine = plot(plt, ...
-                1000*[sacOn, sacOn]/FS, lim_lines, 'r--');
+            if get(handles.chk_el_sac,'Value')
+                sacLine = plot(plt, ...
+                    1000*[sacOn, sacOn]/FS, lim_lines, 'r--');
+            elseif get(handles.chk_ah_sac,'Value')
+                sacLine = plot(plt, ...
+                    1000*[sacOn, sacOn]/FS, lim_lines, 'b--');
+            end
             set(sacLine, 'ButtonDownFcn', {@saccadeLineCallback, handles});
             if any(saccadesP==sacOn*1000/FS)
                 set(sacLine, 'LineWidth', 2.5)

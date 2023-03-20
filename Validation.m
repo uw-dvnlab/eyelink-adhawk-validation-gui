@@ -453,6 +453,7 @@ function btn_save_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 handles = saveSaccades(handles);
+guidata(hObject, handles);
 [file,path] = uiputfile('C:\', 'Save .mat File', '*.mat');
 if isequal(file,0) || isequal(path,0)
     disp('User clicked Cancel.')

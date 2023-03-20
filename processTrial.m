@@ -16,19 +16,16 @@ handles.trial_data(tNo).saccadesX_EL = detectSaccades(handles.trial_data(tNo).de
     handles.SAC_DET(1), handles.SAC_DET(2), handles.SAC_DET(3));
 handles.trial_data(tNo).saccadesX_AH = detectSaccades(handles.trial_data(tNo).degX_AH_filt(:,end), ...
     handles.SAC_DET(1), handles.SAC_DET(2), handles.SAC_DET(3));
-handles.trial_data(tNo).saccadesX_primary_EL = [];
-handles.trial_data(tNo).saccadesX_primary_AH = [];
-handles.trial_data(tNo).saccadesX_marked_EL = [];
-handles.trial_data(tNo).saccadesX_marked_AH = [];
 % Y
 handles.trial_data(tNo).saccadesY_EL = detectSaccades(handles.trial_data(tNo).degY_EL_filt(:,end), ...
     handles.SAC_DET(1), handles.SAC_DET(2), handles.SAC_DET(3));
 handles.trial_data(tNo).saccadesY_AH = detectSaccades(handles.trial_data(tNo).degY_AH_filt(:,end), ...
     handles.SAC_DET(1), handles.SAC_DET(2), handles.SAC_DET(3));
-handles.trial_data(tNo).saccadesY_primary_EL = [];
-handles.trial_data(tNo).saccadesY_primary_AH = [];
-handles.trial_data(tNo).saccadesY_marked_EL = [];
-handles.trial_data(tNo).saccadesY_marked_AH = [];
+
+handles.trial_data(tNo).saccades_primary_EL = [];
+handles.trial_data(tNo).saccades_primary_AH = [];
+handles.trial_data(tNo).saccades_marked_EL = [];
+handles.trial_data(tNo).saccades_marked_AH = [];
 % Vergence
 handles.trial_data(tNo).verg_win = handles.WIN;
 % % Get Pursuit Timestamps
