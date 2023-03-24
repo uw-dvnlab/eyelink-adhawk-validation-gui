@@ -6,6 +6,9 @@ if strcmp(handles.task, 'HMS')
     trig_per_trial = 3;
     trig_time = [0, 250, 500];
 end
+if idx_trial_AH(end, 2) > height(handles.tbl_AH)
+    idx_trial_AH(end, 2) = height(handles.tbl_AH);
+end
 task_trials = struct;
 for i=1:size(idx_trial_EL,1)
     task_trials(i).EL = handles.tbl_EL(idx_trial_EL(i,1):idx_trial_EL(i,2), :);
