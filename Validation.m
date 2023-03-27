@@ -140,7 +140,7 @@ if handles.task~=-1
             handles = processTask(handles);
             handles.trialNo = 1;
             % Plot Data
-            plotData(handles);
+            handles = plotData(handles);
             setQualityButtons(handles)
             % SET FIGURE LABELS WITH SUBJECT ID
             set(handles.txt_sub_pos, 'String', ['SUBJECT: ' handles.subject]);
@@ -193,7 +193,7 @@ function btn_next_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 handles = saveSaccades(handles);
-if handles.trialNo+1 < length(handles.trial_data)
+if handles.trialNo+1 <= length(handles.trial_data)
     handles.trialNo = handles.trialNo + 1;
 else
     disp('End of Trials')
@@ -201,7 +201,7 @@ end
 % Plot Data
 handles.WIN = handles.trial_data(handles.trialNo).verg_win;
 setQualityButtons(handles)
-plotData(handles);
+handles = plotData(handles);
 
 guidata(hObject, handles);
 assignin('base','handles',handles)
@@ -219,7 +219,7 @@ else
 end
 % Plot Data
 setQualityButtons(handles)
-plotData(handles);
+handles = plotData(handles);
 
 guidata(hObject, handles);
 assignin('base','handles',handles)
@@ -236,7 +236,7 @@ handles = processTask(handles);
 handles.trialNo = 1;
 % Plot Data
 setQualityButtons(handles)
-plotData(handles);
+handles = plotData(handles);
 
 guidata(hObject, handles);
 assignin('base','handles',handles)
@@ -249,7 +249,7 @@ if str2double(get(hObject,'String'))>0 && str2double(get(hObject,'String'))<125
     handles.CUT_FREQ = str2double(get(hObject,'String'));
     handles = processTrial(handles, handles.trialNo);
     % Plot Data
-    plotData(handles);
+    handles = plotData(handles);
 end
 guidata(hObject, handles);
 assignin('base','handles',handles)
@@ -261,7 +261,7 @@ function et_amplitude_Callback(hObject, eventdata, handles)
 handles.SAC_DET(1) = str2double(get(hObject,'String'));
 handles = processTrial(handles, handles.trialNo);
 % Plot Data
-plotData(handles);
+handles = plotData(handles);
 
 guidata(hObject, handles);
 assignin('base','handles',handles)
@@ -273,7 +273,7 @@ function et_velocity_Callback(hObject, eventdata, handles)
 handles.SAC_DET(2) = str2double(get(hObject,'String'));
 handles = processTrial(handles, handles.trialNo);
 % Plot Data
-plotData(handles);
+handles = plotData(handles);
 
 guidata(hObject, handles);
 assignin('base','handles',handles)
@@ -283,28 +283,28 @@ function chk_el_raw_Callback(hObject, eventdata, handles)
 % hObject    handle to chk_el_raw (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-plotData(handles);
+handles = plotData(handles);
 
 % --- Executes on button press in chk_ah_raw.
 function chk_ah_raw_Callback(hObject, eventdata, handles)
 % hObject    handle to chk_ah_raw (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-plotData(handles);
+handles = plotData(handles);
 
 % --- Executes on button press in chk_el_filt.
 function chk_el_filt_Callback(hObject, eventdata, handles)
 % hObject    handle to chk_el_filt (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-plotData(handles);
+handles = plotData(handles);
 
 % --- Executes on button press in chk_ah_filt.
 function chk_ah_filt_Callback(hObject, eventdata, handles)
 % hObject    handle to chk_ah_filt (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-plotData(handles);
+handles = plotData(handles);
 
 % --- Executes on button press in chk_el_sac.
 function chk_el_sac_Callback(hObject, eventdata, handles)
@@ -316,7 +316,7 @@ if handles.chk_el_sac.Value==1
     set(handles.chk_ah_filt, 'Value', 0);
     set(handles.chk_el_filt, 'Value', 1);
 end
-plotData(handles);
+handles = plotData(handles);
 
 guidata(hObject, handles);
 assignin('base','handles',handles)
@@ -331,7 +331,7 @@ if handles.chk_ah_sac.Value==1
     set(handles.chk_el_filt, 'Value', 0);
     set(handles.chk_ah_filt, 'Value', 1);
 end
-plotData(handles);
+handles = plotData(handles);
 
 guidata(hObject, handles);
 assignin('base','handles',handles)
@@ -344,7 +344,7 @@ handles.WIN(2) = str2double(get(hObject,'String'));
 handles = processTrial(handles, handles.trialNo);
 guidata(hObject, handles);
 % Plot Data
-plotData(handles);
+handles = plotData(handles);
 
 guidata(hObject, handles);
 assignin('base','handles',handles)
@@ -357,7 +357,7 @@ handles.WIN(1) = str2double(get(hObject,'String'));
 handles = processTrial(handles, handles.trialNo);
 guidata(hObject, handles);
 % Plot Data
-plotData(handles);
+handles = plotData(handles);
 
 guidata(hObject, handles);
 assignin('base','handles',handles)
@@ -375,7 +375,7 @@ end
 setQualityButtons(handles)
 handles = processTrial(handles, handles.trialNo);
 % Plot Data
-plotData(handles);
+handles = plotData(handles);
 guidata(hObject, handles);
 assignin('base','handles',handles)
 
@@ -392,7 +392,7 @@ end
 setQualityButtons(handles)
 handles = processTrial(handles, handles.trialNo);
 % Plot Data
-plotData(handles);
+handles = plotData(handles);
 guidata(hObject, handles);
 assignin('base','handles',handles)
 
@@ -409,7 +409,7 @@ end
 setQualityButtons(handles)
 handles = processTrial(handles, handles.trialNo);
 % Plot Data
-plotData(handles);
+handles = plotData(handles);
 guidata(hObject, handles);
 assignin('base','handles',handles)
 
@@ -426,7 +426,7 @@ end
 setQualityButtons(handles)
 handles = processTrial(handles, handles.trialNo);
 % Plot Data
-plotData(handles);
+handles = plotData(handles);
 guidata(hObject, handles);
 assignin('base','handles',handles)
 
@@ -443,7 +443,7 @@ end
 setQualityButtons(handles)
 handles = processTrial(handles, handles.trialNo);
 % Plot Data
-plotData(handles);
+handles = plotData(handles);
 guidata(hObject, handles);
 assignin('base','handles',handles)
 
@@ -453,15 +453,9 @@ function btn_save_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 handles = saveSaccades(handles);
+handles = plotData(handles);
 guidata(hObject, handles);
-[file,path] = uiputfile('C:\', 'Save .mat File', '*.mat');
-if isequal(file,0) || isequal(path,0)
-    disp('User clicked Cancel.')
-else
-    disp(['User selected ',fullfile(path,file),...
-         ' and then clicked Save.'])
-    save(fullfile(path,file),'-struct','handles','trial_data')
-end
+saveData(handles);
 
 % --- Executes on button press in rad_el.
 function rad_el_Callback(hObject, eventdata, handles)
@@ -479,7 +473,7 @@ else
     set(hObject, 'Value', 1);
 end
 setQualityButtons(handles)
-plotData(handles);
+handles = plotData(handles);
 
 guidata(hObject, handles);
 assignin('base','handles',handles)
@@ -500,7 +494,7 @@ else
     set(hObject, 'Value', 1);
 end
 setQualityButtons(handles)
-plotData(handles);
+handles = plotData(handles);
 
 guidata(hObject, handles);
 assignin('base','handles',handles)
@@ -544,7 +538,7 @@ else
     disp('Please enter valid trial number')
 end
 % Plot Data
-plotData(handles);
+handles = plotData(handles);
 % Update handles structure
 guidata(hObject, handles);
 assignin('base','handles',handles)
@@ -555,7 +549,7 @@ function chk_linestyle_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 % Plot Data
-plotData(handles);
+handles = plotData(handles);
 guidata(hObject, handles);
 assignin('base','handles',handles)
 
@@ -565,7 +559,7 @@ function btn_save_sac_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 handles = saveSaccades(handles);
-plotData(handles);
+handles = plotData(handles);
 
 guidata(hObject, handles);
 assignin('base','handles',handles)
@@ -575,7 +569,7 @@ function btn_fixwin_Callback(hObject, eventdata, handles)
 % hObject    handle to btn_fixwin (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-plotData(handles);
+handles = plotData(handles);
 
 guidata(hObject, handles);
 assignin('base','handles',handles)
