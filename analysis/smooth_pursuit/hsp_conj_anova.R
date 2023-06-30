@@ -1,0 +1,41 @@
+# Load libraries
+library(tidyverse)
+library(ggpubr)
+library(rstatix)
+
+# Read data
+tbl_data = read.csv(file = "gain_anova_vsp.csv")
+tbl_data$source <- factor(tbl_data$source , levels=c("eyelink", "adhawk", "ideal"))
+tbl_data$freq <- factor(tbl_data$freq , levels=c(0.01, 0.1, 0.2))
+
+# Summary stats
+summary <- tbl_data %>%
+  group_by(source, freq) %>%
+  get_summary_stats(gain, type = "mean_sd")
+summary
+
+# Visualize summary
+bxp <- ggboxplot(
+  tbl_data, x = "freq", y = "gain",
+  color = "source", palette = "jco",
+)
+bxp
+
+# Test normality
+tbl_data %>%
+  group_by(source, freq) %>%
+  shapiro_test(gain)
+
+# Homogeneity of variance (each within group factor)
+tbl_data %>%
+  group_by(freq) %>%
+  levene_test(gain ~ source)
+
+# ANOVA
+res.aov <- anova_test(
+  data = tbl_data, dv = gain, wid = subject,
+  within = freq,
+  between = source
+)
+tbl.aov <- get_anova_table(res.aov)
+tbl.aov

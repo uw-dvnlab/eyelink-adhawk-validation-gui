@@ -15,7 +15,7 @@ else
     ah_fixation_data = [repmat("AH", size(ah_fixation_data, 1), 1), ah_fixation_data];
     fixation_data = [el_fixation_data; ah_fixation_data];
     if size(el_fixation_data, 1)>0
-        labels = ["tracker", "trial", "win_start", "win_end", "r_mu_x", "r_mu_y", "r_std_x", "r_std_y", "l_mu_x", "l_mu_y", "l_std_x", "l_std_y"];
+        labels = ["tracker", "trial", "win_start", "win_end", "r_mu_x", "r_mu_y", "r_std_x", "r_std_y", "r_corr", "l_mu_x", "l_mu_y", "l_std_x", "l_std_y", "l_corr"];
         tbl_fix = array2table(fixation_data, 'VariableNames', cellstr(labels));
 
         [file,path] = uiputfile('C:\', 'Save .csv File', '*.csv');

@@ -124,6 +124,8 @@ if handles.task~=-1
                 fname_ah = [handles.subject '_' handles.task '_gaze_per_eye.csv'];
             end
             handles.file_ah = fullfile(pathname, fname_ah);
+            guidata(hObject, handles);
+            assignin('base','handles',handles)
             handles.tbl_AH = readAdHawkData(handles.file_ah);
             % Load Arduino Data
             waitbar(0.9,f,['Loading Arduino Data for: ' handles.subject]);

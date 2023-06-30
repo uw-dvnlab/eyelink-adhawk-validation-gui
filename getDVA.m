@@ -1,6 +1,8 @@
 function [deg_EL, deg_AH] = getDVA(task, raw_EL, raw_AH, dim)
-RES = [1024, 768]; % px
-DIM = [35.2, 26.4]; % cm
+% RES = [1024, 768]; % px
+% DIM = [35.2, 26.4]; % cm
+RES = [1920, 1080]; % px
+DIM = [56.6, 44.2]; % cm
 DIST = 80; % cm
 POLARITY = 1;
 lbl_ah_z = ["Gaze_Z_Left", "Gaze_Z_Right"];
