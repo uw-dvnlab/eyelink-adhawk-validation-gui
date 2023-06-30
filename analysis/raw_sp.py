@@ -40,3 +40,5 @@ for i, spd in enumerate(speeds):
         n_idx += 1
         
 plt.suptitle('Raw Smooth Pursuit Data')
+handles, labels = ax.get_legend_handles_labels()
+fig.legend(handles, labels, loc='upper right')
