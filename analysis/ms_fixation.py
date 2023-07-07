@@ -39,7 +39,7 @@ def get_exp_curve(popt):
 nsubs = 13
 loss ='cauchy'
 dict_vmax = { 'Subject': [], 'EL': [], 'ML': [] }
-for n in range(nsubs):
+for n in range(13):
     num = "%02d" % (n+1)
     df_el_sub = df_el.loc[df_el.subject==f'AE{num}', :]
     df_ah_sub = df_ah.loc[df_ah.subject==f'AE{num}', :]
@@ -80,7 +80,7 @@ for n in range(nsubs):
         'label': ['EL',
                   'ML']
         }
-    plot_main_sequence( num, dict_data )
+    plot_main_sequence( num, dict_data, dict_task[task][0] )
     dict_vmax['Subject'].append(f'AE{num}')
     dict_vmax['EL'].append(popt_el[0])
     dict_vmax['ML'].append(popt_ah[0])
@@ -101,12 +101,12 @@ fig = bland_altman_plot(
     data2_name='ML',
     subgroups=df_vmax.Subject,
     plotly_template='none',
-    annotation_offset=30,
+    annotation_offset=45,
     n_sd=1.96,
-    parameter = f"Max {dict_task[task][0]} Saccade Velocity",
-    units = 'dva/s',
+    parameter = f"Max {dict_task[task][0]} Velocity",
+    units = 'DVA/s',
     range_x = [200,1000],
-    range_y = [-1000, 1000],
+    range_y = [-850, 850],
     marker_sz=25)
 
 fig.show()
@@ -117,6 +117,7 @@ import matplotlib.pyplot as plt
 my_dpi = 96
 plt.close('all')
 plt.figure(figsize=(1600/my_dpi, 1000/my_dpi), dpi=my_dpi)
+plt.rcParams.update({'font.size': 26})
 
 df_vmax.loc[nsubs] = df_vmax.mean()
 df_vmax.at[nsubs, 'Subject'] = 'Mean'
@@ -129,9 +130,9 @@ df_vmax.plot(
     rot=0,
     width=0.75)
 
-# plt.gca().set_xticklabels(np.arange(1,14,1))
+plt.gca().set_xticklabels(list(np.arange(1,14,1)) + ['Mean'])
 # plt.ylim(0,1000)
-plt.ylabel('Maximum Velocity (dva/s)')
+plt.ylabel('Maximum Velocity (DVA/s)')
 plt.title(f'Maximum Velocity from {dict_task[task][0]} Main Sequence')
 
     

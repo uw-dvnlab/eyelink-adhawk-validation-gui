@@ -12,7 +12,7 @@ def per_subject_plot(df, x, y, xlim, ylim, ylabel, title):
     my_dpi = 96
     plt.close('all')
     plt.figure(figsize=(1600/my_dpi, 1000/my_dpi), dpi=my_dpi)
-    plt.rcParams.update({'font.size': 22})
+    plt.rcParams.update({'font.size': 30})
     
     sns.pointplot(data=df, x=x, y=y, join=False,
                   errorbar='sd', capsize=.2, errwidth=2)

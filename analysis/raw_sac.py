@@ -24,7 +24,7 @@ for j, track in enumerate(trackers):
     df = pd.read_excel(f'./saccades/raw_data/{track}_hms.xlsx')
     
     ax = axes[j]
-    ax.text(-0.05, 1.02, string.ascii_uppercase[n_idx], transform=ax.transAxes, 
+    ax.text(-0.1, 1.02, f'({string.ascii_uppercase[n_idx].lower()})', transform=ax.transAxes, 
             size=24, weight='bold')
     
     fs = 250
@@ -33,7 +33,8 @@ for j, track in enumerate(trackers):
     ax.plot(time, df.l, 'b', label='left eye')
     
     ax.set_xlabel('Time (sec)')
-    ax.set_ylabel(f'{track.upper()} Position (dva)')
+    ax.set_ylabel(f'{track.upper()} Position (DVA)')
+    ax.set_ylim(-12.5, 9)
     # ax.legend()
     
     n_idx += 1

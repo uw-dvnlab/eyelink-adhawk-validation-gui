@@ -17,20 +17,20 @@ df_data.drop(df_data[df_data.coeff_el < thresh_coeff].index, inplace=True)
 df_data.drop(df_data[df_data.coeff_ah < thresh_coeff].index, inplace=True)
 
 # print(1-(len(df_data)/2)/390)
-df_data = df_data.loc[df_data.freq==0.1]
+# df_data = df_data.loc[df_data.freq==0.1]
 
 fig = bland_altman_plot(
     data1=df_data.gain_el.values,
     data2=df_data.gain_ah.values,
     data1_name='EL', 
     data2_name='ML',
-    subgroups=df_data.subject, 
+    subgroups=df_data.freq, 
     plotly_template='none',
-    annotation_offset=0.1, 
+    annotation_offset=0.12, 
     n_sd=1.96,
-    parameter="Horizontal Velocity Gain (5 dva/s)",
+    parameter="Horizontal Velocity Gain",
     units='ratio',
-    range_x=[0, 1.5],
+    range_x=[0, 2],
     range_y=[-2.5, 2.5],
     marker_sz=10)
 
@@ -38,24 +38,25 @@ fig.show()
 
 #%%
 task = 'vsp'
-thresh_coeff = 0.9
+thresh_coeff = 0.5
 df_data = pd.read_csv(f'./smooth_pursuit/gains_{task}.csv')
 df_data.drop(df_data[df_data.coeff_el < thresh_coeff].index, inplace=True)
 df_data.drop(df_data[df_data.coeff_ah < thresh_coeff].index, inplace=True)
+df_data = df_data.loc[df_data.freq==0.01]
 
 fig = bland_altman_plot(
-    data1=df_data.gain_el.values,
-    data2=df_data.gain_ah.values,
+    data1=df_data.slope_el.values,
+    data2=df_data.slope_ah.values,
     data1_name='EL', 
     data2_name='ML',
     subgroups=df_data.subject, 
     plotly_template='none',
-    annotation_offset=0.05, 
+    annotation_offset=0.15, 
     n_sd=1.96,
     parameter="Vertical Velocity Gain",
     units='ratio',
-    range_x=[0, 1.5],
-    range_y=[-1, 1],
+    range_x=[0, 15],
+    range_y=[-6, 6],
     marker_sz=10)
 
 fig.show()

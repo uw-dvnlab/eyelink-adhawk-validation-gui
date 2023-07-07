@@ -12,25 +12,25 @@ if dim==1
     lbl_ah = ["Gaze_X_Left", "Gaze_X_Right"];
     d_dim = DIM(1);
     d_res = RES(1);
+    % Adhawk
+    AH_L = atan2d(raw_AH.(char(lbl_ah(1))), ...
+        sqrt(raw_AH.(char(lbl_ah(2))).^2 + raw_AH.(char(lbl_ah_z(1))).^2) );
+    AH_R = atan2d(raw_AH.(char(lbl_ah(2))), ...
+        (-1*raw_AH.(char(lbl_ah_z(2)))));
 else
     lbl_el = ["LY", "RY"];
     lbl_ah = ["Gaze_Y_Left", "Gaze_Y_Right"];
     d_dim = DIM(2);
     d_res = RES(2);
     POLARITY = -1;
+    % Adhawk
+    AH_L = atan2d(raw_AH.(char(lbl_ah(1))), (-1*raw_AH.(char(lbl_ah_z(1)))));
+    AH_R = atan2d(raw_AH.(char(lbl_ah(2))), (-1*raw_AH.(char(lbl_ah_z(2)))));
 end
 
 % Eyelink
 EL_L = atan2d(d_dim(1) * ((raw_EL.(char(lbl_el(1))) / d_res(1)) - 0.5), DIST);
 EL_R = atan2d(d_dim(1) * ((raw_EL.(char(lbl_el(2))) / d_res(1)) - 0.5), DIST);
-
-% Adhawk
-AH_L = asind(raw_AH.(char(lbl_ah(1))));
-AH_R = asind(raw_AH.(char(lbl_ah(2))));
-% AH_Lt = atand(raw_AH.(char(lbl_ah(1))) ./ (-1*raw_AH.(char(lbl_ah_z(1)))));
-% AH_Rt = atand(raw_AH.(char(lbl_ah(2))) ./ (-1*raw_AH.(char(lbl_ah_z(2)))));
-AH_Lt = atan2d(raw_AH.(char(lbl_ah(1))), (-1*raw_AH.(char(lbl_ah_z(1)))));
-AH_Rt = atan2d(raw_AH.(char(lbl_ah(2))), (-1*raw_AH.(char(lbl_ah_z(2)))));
 
 if dim==1
     assignin('base','AHL',[AH_L, AH_Lt]);

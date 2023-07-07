@@ -25,7 +25,7 @@ for i, spd in enumerate(speeds):
         df = pd.read_excel(f'./smooth_pursuit/raw_data/{track}_{spd}.xlsx')
         
         ax = axes[i,j]
-        ax.text(-0.1, 1.1, string.ascii_uppercase[n_idx], transform=ax.transAxes, 
+        ax.text(-0.1, 1.05, f'({string.ascii_uppercase[n_idx].lower()})', transform=ax.transAxes, 
                 size=20, weight='bold')
         
         fs = 250
@@ -33,9 +33,11 @@ for i, spd in enumerate(speeds):
         ax.plot(time, df.r, 'r', label='right eye')
         ax.plot(time, df.l, 'b', label='left eye')
         
-        ax.set_xlabel('Time (sec)')
-        ax.set_ylabel(f'{track.upper()} Position (dva)')
+        if i==2:
+            ax.set_xlabel('Time (sec)')
+        ax.set_ylabel(f'{track.upper()} Position (DVA)')
         # ax.legend()
+        ax.set_ylim(-15,15)
         
         n_idx += 1
         

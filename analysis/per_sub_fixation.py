@@ -29,9 +29,9 @@ df = pd.concat([df, df_all])
 per_subject_plot(df,
                  'subject',
                  'diff',
-                 15,
+                 14,
                  [-1.25,1.25],
-                 'Fixation SD Difference (dva)',
+                 'Fixation SD Difference (DVA)',
                  'Horizontal Fixation SD')
 
 #%% Y SD
@@ -54,9 +54,9 @@ df = pd.concat([df, df_all])
 per_subject_plot(df,
                  'subject',
                  'diff',
-                 15,
+                 14,
                  [-1.25,1.25],
-                 'Fixation SD Difference (dva)',
+                 'Fixation SD Difference (DVA)',
                  'Vertical Fixation SD')
 
 #%% logBCEA
@@ -92,7 +92,7 @@ df = pd.concat([df, df_all])
 per_subject_plot(df,
                  'subject',
                  'diff',
-                 15,
+                 14,
                  [-1.25,1.25],
-                 'logBCEA Difference (dva^2)',
+                 r'logBCEA Difference ($DVA^2$)',
                  'logBCEA')

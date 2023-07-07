@@ -50,6 +50,6 @@ per_subject_plot(df,
                  'subject',
                  'diff',
                  14,
-                 [-15,15],
-                 'Amplitude Difference (dva)',
+                 [-14,14],
+                 'Amplitude Difference (DVA)',
                  f'{dict_task[task][0]} Saccade Amplitude')

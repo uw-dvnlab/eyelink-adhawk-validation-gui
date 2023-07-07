@@ -33,7 +33,7 @@ df.loc[df.Speed==0.2, 'Speed'] = '10 DVA/s'
 my_dpi = 96
 plt.close('all')
 plt.figure(figsize=(1600/my_dpi, 1000/my_dpi), dpi=my_dpi)
-plt.rcParams.update({'font.size': 22})
+plt.rcParams.update({'font.size': 30})
 
 sns.pointplot(data=df, x='subject', y='diff', hue='Speed', join=False,
               dodge=0.5, errorbar='sd', capsize=.2, errwidth=2,
@@ -46,10 +46,10 @@ plt.xlim(-1, 14)
 plt.ylim(-2.5, 3.75)
 plt.xlabel('Subject')
 plt.ylabel('Velocity Gain Difference (ratio)')
-plt.title('Vertical Velocity Gain Difference Per Subject')
+plt.title('Horizontal Velocity Gain Difference Per Subject')
 
 #%% Raw Vel
-task = 'hsp'
+task = 'vsp'
 thresh_coeff = 0.5
 df_data = pd.read_csv(f'./smooth_pursuit/gains_{task}.csv')
 df_data.drop(df_data[df_data.coeff_el < thresh_coeff].index, inplace=True)
@@ -70,7 +70,7 @@ df.loc[df.Speed==0.2, 'Speed'] = '10 DVA/s'
 my_dpi = 96
 plt.close('all')
 plt.figure(figsize=(1600/my_dpi, 1000/my_dpi), dpi=my_dpi)
-plt.rcParams.update({'font.size': 22})
+plt.rcParams.update({'font.size': 30})
 
 sns.pointplot(data=df, x='subject', y='diff', hue='Speed', join=False,
               dodge=0.5, errorbar='sd', capsize=.2, errwidth=2,
@@ -80,7 +80,7 @@ plt.plot([-1, 14], [0,0], 'k')
 
 plt.gca().set_xticklabels(list(np.arange(1,14,1)) + ['Mean'])
 plt.xlim(-1, 14)
-plt.ylim(-5, 5)
+plt.ylim(-12, 12)
 plt.xlabel('Subject')
 plt.ylabel('Velocity Difference (DVA/s)')
-plt.title('Horizontal Velocity Difference Per Subject')
+plt.title('Vertical Velocity Difference Per Subject')

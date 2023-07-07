@@ -26,7 +26,7 @@ for i, direct in enumerate(direction):
         df = pd.read_excel(f'./fixation_stability/raw_data/{track}_fix_{direct}.xlsx')
         
         ax = axes[i,j]
-        ax.text(-0.1, 1.1, string.ascii_uppercase[n_idx], transform=ax.transAxes, 
+        ax.text(-0.1, 1.05, f'({string.ascii_uppercase[n_idx].lower()})', transform=ax.transAxes, 
                 size=20, weight='bold')
         
         fs = 250
@@ -34,10 +34,11 @@ for i, direct in enumerate(direction):
         ax.plot(time, df.r, 'r', label='right eye')
         ax.plot(time, df.l, 'b', label='left eye')
         
-        ax.set_xlabel('Time (sec)')
-        ax.set_ylabel(f'{track.upper()} Position (dva)')
+        if i==2:
+            ax.set_xlabel('Time (sec)')
+        ax.set_ylabel(f'{track.upper()} {direct.upper()} Position (DVA)')
         # ax.legend()
-        ax.set_ylim(-1,1)
+        ax.set_ylim(-1.25,1.25)
         
         n_idx += 1
         
