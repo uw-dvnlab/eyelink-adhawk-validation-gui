@@ -11,7 +11,7 @@ def bland_altman_plot(data1, data2, data1_name='EL', data2_name='AH',
                       subgroups=None, plotly_template='none', 
                       annotation_offset=0.05, n_sd=1.96, 
                       parameter="parameter", units="unit",
-                      range_x=[0,1], range_y=[0,1], marker_sz=10,
+                      range_x=[0,1], range_y=[0,1], marker_sz=10, adjust=1.27,
                       *args, **kwargs):
     data1 = np.asarray( data1 )
     data2 = np.asarray( data2 )
@@ -130,6 +130,8 @@ def bland_altman_plot(data1, data2, data1_name='EL', data2_name='AH',
     fig.update_layout(title=None, showlegend=False)
     
     # Edit the layout
+    align = "left"
+    label_x = adjust
     fig.update_layout( title=f'{parameter} Bland-Altman Plot for {data1_name} and {data2_name}',
                        xaxis_title=f'Mean of Methods ({units})',
                        yaxis_title=f'{data1_name} Minus {data2_name} ({units})',
@@ -137,126 +139,54 @@ def bland_altman_plot(data1, data2, data1_name='EL', data2_name='AH',
                        legend=dict(font = dict(size=16)),
                        template=plotly_template,
                        annotations=[dict(
-                                        x=1,
-                                        y=md + annotation_offset,
+                                        x=label_x-0.06,
+                                        y=md,
                                         xref="paper",
                                         yref="y",
-                                        text="Mean",
+                                        text=f"Mean: {round(md,2):.2f}",
                                         font=dict(size=font_sz),
                                         showarrow=False,
-                                        arrowhead=0,
-                                        ax=50,
-                                        ay=0
-                                    ),
-                                    dict(
-                                        x=1,
-                                        y=md - annotation_offset,
-                                        xref="paper",
-                                        yref="y",
-                                        text=f"{round(md,2)}",
-                                        font=dict(size=font_sz),
-                                        showarrow=False,
-                                        arrowhead=0,
-                                        ax=50,
-                                        ay=0
+                                        align=align
                                     ),
                                    dict(
-                                       x=1,
-                                       y=n_sd*sd + md + annotation_offset,
+                                       x=label_x,
+                                       y=n_sd*sd + md,
                                        xref="paper",
                                        yref="y",
-                                       text=f"+{n_sd} SD",
+                                       text=f"+{n_sd} SD: {round(md + n_sd*sd, 2):.2f}",
                                        font=dict(size=font_sz,color=col1),
                                        showarrow=False,
-                                       arrowhead=0,
-                                       ax=0,
-                                       ay=-20
                                    ),
                                    dict(
-                                       x=1,
-                                       y=md - n_sd *sd - annotation_offset,
+                                       x=label_x,
+                                       y=md - n_sd *sd,
                                        xref="paper",
                                        yref="y",
-                                       text=f"-{n_sd} SD",
+                                       text=f"-{n_sd} SD: {round(md - n_sd*sd, 2):.2f}",
                                        font=dict(size=font_sz,color=col1),
                                        showarrow=False,
-                                       arrowhead=0,
-                                       ax=0,
-                                       ay=20
-                                   ),
-                                   dict(
-                                       x=1,
-                                       y=md + n_sd * sd - annotation_offset,
-                                       xref="paper",
-                                       yref="y",
-                                       text=f"{round(md + n_sd*sd, 2)}",
-                                       font=dict(size=font_sz,color=col1),
-                                       showarrow=False,
-                                       arrowhead=0,
-                                       ax=0,
-                                       ay=20
-                                   ),
-                                   dict(
-                                       x=1,
-                                       y=md - n_sd * sd + annotation_offset,
-                                       xref="paper",
-                                       yref="y",
-                                       text=f"{round(md - n_sd*sd, 2)}",
-                                       font=dict(size=font_sz,color=col1),
-                                       showarrow=False,
-                                       arrowhead=0,
-                                       ax=0,
-                                       ay=20
                                    ),
                                   dict(
-                                      x=1,
-                                      y=1*sd + md + annotation_offset,
+                                      x=label_x-0.0575,
+                                      y=1*sd + md,
                                       xref="paper",
                                       yref="y",
-                                      text=f"+{1} SD",
+                                      text=f"+{1} SD: {round(md + 1*sd, 2):.2f}",
                                       font=dict(size=font_sz,color=col2),
                                       showarrow=False,
-                                      arrowhead=0,
-                                      ax=0,
-                                      ay=-20
                                   ),
                                   dict(
-                                      x=1,
-                                      y=md - 1*sd - annotation_offset,
+                                      x=label_x-0.0575,
+                                      y=md - 1*sd,
                                       xref="paper",
                                       yref="y",
-                                      text=f"-{1} SD",
+                                      text=f"-{1} SD: {round(md - 1*sd, 2):.2f}",
                                       font=dict(size=font_sz,color=col2),
                                       showarrow=False,
-                                      arrowhead=0,
-                                      ax=0,
-                                      ay=20
-                                  ),
-                                  dict(
-                                      x=1,
-                                      y=md + 1* sd - annotation_offset,
-                                      xref="paper",
-                                      yref="y",
-                                      text=f"{round(md + 1*sd, 2)}",
-                                      font=dict(size=font_sz,color=col2),
-                                      showarrow=False,
-                                      arrowhead=0,
-                                      ax=0,
-                                      ay=20
-                                  ),
-                                  dict(
-                                      x=1,
-                                      y=md - 1* sd + annotation_offset,
-                                      xref="paper",
-                                      yref="y",
-                                      text=f"{round(md - 1*sd, 2)}",
-                                      font=dict(size=font_sz,color=col2),
-                                      showarrow=False,
-                                      arrowhead=0,
-                                      ax=0,
-                                      ay=20
                                   )
                                ])
+    # align annotations
+    # fig.update_annotations(align='left')
     # Remove the title and legend
     # fig.update_layout(title=None, showlegend=False)
     
@@ -272,7 +202,8 @@ def bland_altman_plot(data1, data2, data1_name='EL', data2_name='AH',
     
        # Add boxed border
     fig.update_layout(
-        width=1600,
+        margin=dict(l=20, r=400),
+        width=1800,
         height=1000,
         xaxis=dict(
             showline=True,
@@ -287,6 +218,7 @@ def bland_altman_plot(data1, data2, data1_name='EL', data2_name='AH',
             mirror=True
         ),
         plot_bgcolor='white',
+        title=None,
         showlegend=False
     )
     

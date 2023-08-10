@@ -38,7 +38,7 @@ df_ah_l.columns = ['subject', 'bcea']
 df_el = pd.concat([df_el_r, df_el_l])
 df_ah = pd.concat([df_ah_r, df_ah_l])
 
-#%%
+#%% Create plot - Bland Altman logBCEA
 fig = bland_altman_plot(
     data1=df_el.bcea.values,
     data2=df_ah.bcea.values,
@@ -49,7 +49,7 @@ fig = bland_altman_plot(
     annotation_offset=0.07, 
     n_sd=1.96,
     parameter = "logBCEA",
-    units = 'DVA^2',
+    units = 'degrees^2',
     range_x = [-2, 1],
     range_y = [-1.5, 1.5],
     marker_sz=20

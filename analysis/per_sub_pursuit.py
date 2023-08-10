@@ -11,8 +11,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
 
-# HSP
-task = 'hsp'
+#%% Create plot - Pursuit: Velocity Gain
+task = 'hsp' # 'hsp' or 'vsp'
 thresh_coeff = 0.5
 df_data = pd.read_csv(f'./smooth_pursuit/gains_{task}.csv')
 df_data.drop(df_data[df_data.coeff_el < thresh_coeff].index, inplace=True)
@@ -26,9 +26,9 @@ df_all.subject = 'Mean'
 
 df = pd.concat([df_data, df_all])
 df.rename(columns={"freq": "Speed"}, inplace=True)
-df.loc[df.Speed==0.01, 'Speed'] = '0.5 DVA/s'
-df.loc[df.Speed==0.1, 'Speed'] = '5 DVA/s'
-df.loc[df.Speed==0.2, 'Speed'] = '10 DVA/s'
+df.loc[df.Speed==0.01, 'Speed'] = r'0.5$^{\circ}$/s'
+df.loc[df.Speed==0.1, 'Speed'] = r'5$^{\circ}$/s'
+df.loc[df.Speed==0.2, 'Speed'] = r'10$^{\circ}$/s'
 
 my_dpi = 96
 plt.close('all')
@@ -37,19 +37,20 @@ plt.rcParams.update({'font.size': 30})
 
 sns.pointplot(data=df, x='subject', y='diff', hue='Speed', join=False,
               dodge=0.5, errorbar='sd', capsize=.2, errwidth=2,
-              hue_order=['0.5 DVA/s', '5 DVA/s', '10 DVA/s'])
+              hue_order=[r'0.5$^{\circ}$/s', '5$^{\circ}$/s', '10$^{\circ}$/s'],
+              order=list(np.arange(1,14,1)) + [""] + ["Mean"])
 
-plt.plot([-1, 14], [0,0], 'k')
+plt.plot([-1, 15], [0,0], 'k')
 
-plt.gca().set_xticklabels(list(np.arange(1,14,1)) + ['Mean'])
-plt.xlim(-1, 14)
-plt.ylim(-2.5, 3.75)
-plt.xlabel('Subject')
+plt.xlim(-1, 15)
+plt.ylim(-2.25, 2.25)
+plt.xlabel('Participant')
 plt.ylabel('Velocity Gain Difference (ratio)')
-plt.title('Horizontal Velocity Gain Difference Per Subject')
+plt.legend(loc='upper center', bbox_to_anchor=(0.5, 1.05),
+          ncol=3, fancybox=True, shadow=True)
 
-#%% Raw Vel
-task = 'vsp'
+#%% Create plot - Pursuit: Velocity
+task = 'hsp' # 'hsp' or 'vsp'
 thresh_coeff = 0.5
 df_data = pd.read_csv(f'./smooth_pursuit/gains_{task}.csv')
 df_data.drop(df_data[df_data.coeff_el < thresh_coeff].index, inplace=True)
@@ -63,9 +64,9 @@ df_all.subject = 'Mean'
 
 df = pd.concat([df_data, df_all])
 df.rename(columns={"freq": "Speed"}, inplace=True)
-df.loc[df.Speed==0.01, 'Speed'] = '0.5 DVA/s'
-df.loc[df.Speed==0.1, 'Speed'] = '5 DVA/s'
-df.loc[df.Speed==0.2, 'Speed'] = '10 DVA/s'
+df.loc[df.Speed==0.01, 'Speed'] = r'0.5$^{\circ}$/s'
+df.loc[df.Speed==0.1, 'Speed'] = r'5$^{\circ}$/s'
+df.loc[df.Speed==0.2, 'Speed'] = r'10$^{\circ}$/s'
 
 my_dpi = 96
 plt.close('all')
@@ -74,13 +75,14 @@ plt.rcParams.update({'font.size': 30})
 
 sns.pointplot(data=df, x='subject', y='diff', hue='Speed', join=False,
               dodge=0.5, errorbar='sd', capsize=.2, errwidth=2,
-              hue_order=['0.5 DVA/s', '5 DVA/s', '10 DVA/s'])
+              hue_order=[r'0.5$^{\circ}$/s', '5$^{\circ}$/s', '10$^{\circ}$/s'],
+              order=list(np.arange(1,14,1)) + [""] + ["Mean"])
 
-plt.plot([-1, 14], [0,0], 'k')
+plt.plot([-1, 15], [0,0], 'k')
 
-plt.gca().set_xticklabels(list(np.arange(1,14,1)) + ['Mean'])
-plt.xlim(-1, 14)
+plt.xlim(-1, 15)
 plt.ylim(-12, 12)
-plt.xlabel('Subject')
-plt.ylabel('Velocity Difference (DVA/s)')
-plt.title('Vertical Velocity Difference Per Subject')
+plt.xlabel('Participant')
+plt.ylabel(r'Velocity Difference ($^{\circ}$/s)')
+plt.legend(loc='upper center', bbox_to_anchor=(0.5, 1.05),
+          ncol=3, fancybox=True, shadow=True)

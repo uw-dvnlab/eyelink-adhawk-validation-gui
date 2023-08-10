@@ -36,7 +36,7 @@ if dim==1
     assignin('base','AHL',[AH_L, AH_Lt]);
     assignin('base','AHR',[AH_R, AH_Rt]);
     
-    max([max(abs(diff([AH_R, AH_Rt], 1, 2))), max(abs(diff([AH_L, AH_Lt], 1, 2)))])
+    max([max(abs(diff([AH_R, AH_Rt], 1, 2))), max(abs(diff([AH_L, AH_Lt], 1, 2)))]);
 end
 % Adjust
 if strcmp(task, 'HSP') || strcmp(task, 'VSP')

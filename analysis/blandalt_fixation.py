@@ -25,7 +25,7 @@ df_ly.columns = ['subject', 'el_sd', 'ah_sd']
 df_x = pd.concat([df_rx, df_lx])
 df_y = pd.concat([df_ry, df_ly])
 
-#%%
+#%% Create plot - Fixation: Horizontal SD
 fig = bland_altman_plot(
     data1=df_x.el_sd.values,
     data2=df_x.ah_sd.values,
@@ -36,15 +36,15 @@ fig = bland_altman_plot(
     annotation_offset=0.03, 
     n_sd=1.96,
     parameter = "Horizontal SD",
-    units = 'DVA',
+    units = 'degrees',
     range_x = [0, 0.6],
-    range_y = [-0.5, 0.5],
+    range_y = [-0.6, 0.6],
     marker_sz=20
     )
 
 fig.show()
 
-#%%
+#%% Create plot - Fixation: Vertical SD
 fig = bland_altman_plot(
     data1=df_y.el_sd.values,
     data2=df_y.ah_sd.values,
@@ -55,9 +55,9 @@ fig = bland_altman_plot(
     annotation_offset=0.03, 
     n_sd=1.96,
     parameter = "Vertical SD",
-    units = 'DVA',
+    units = 'degrees',
     range_x = [0, 0.6],
-    range_y = [-0.5, 0.5],
+    range_y = [-0.6, 0.6],
     marker_sz=20
     )
 

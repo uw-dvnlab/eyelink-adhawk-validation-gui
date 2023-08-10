@@ -23,7 +23,7 @@ if eye:
 df_el.amp = np.abs(df_el.amp)
 df_ah.amp = np.abs(df_ah.amp)
 
-#%%
+#%% Create plot - Main Sequence
 def exp_func(t, popt):
     return popt[0] * (1 - np.exp(-1 * t / popt[1]))
 
@@ -39,7 +39,7 @@ def get_exp_curve(popt):
 nsubs = 13
 loss ='cauchy'
 dict_vmax = { 'Subject': [], 'EL': [], 'ML': [] }
-for n in range(13):
+for n in range(1):
     num = "%02d" % (n+1)
     df_el_sub = df_el.loc[df_el.subject==f'AE{num}', :]
     df_ah_sub = df_ah.loc[df_ah.subject==f'AE{num}', :]
@@ -88,7 +88,7 @@ for n in range(13):
 df_vmax = pd.DataFrame().from_dict(dict_vmax)
 df_vmax.to_csv(f'./saccades/{task}/vmax.csv')
 
-#%% Bland Altman
+#%% Create plot - Main Sequence: Peak Velocity Difference
 import plotly.io as pio
 from bland_altman import bland_altman_plot
 
@@ -104,14 +104,15 @@ fig = bland_altman_plot(
     annotation_offset=45,
     n_sd=1.96,
     parameter = f"Max {dict_task[task][0]} Velocity",
-    units = 'DVA/s',
-    range_x = [200,1000],
-    range_y = [-850, 850],
-    marker_sz=25)
+    units = r'degrees/s',
+    range_x = [200,750],
+    range_y = [-1000, 1000],
+    marker_sz=25,
+    adjust=1.32)
 
 fig.show()
 
-#%% Bar plot
+#%% Create plot - Peak Saccade Velocity Bar Chart
 import matplotlib.pyplot as plt
 
 my_dpi = 96
@@ -119,10 +120,19 @@ plt.close('all')
 plt.figure(figsize=(1600/my_dpi, 1000/my_dpi), dpi=my_dpi)
 plt.rcParams.update({'font.size': 26})
 
-df_vmax.loc[nsubs] = df_vmax.mean()
-df_vmax.at[nsubs, 'Subject'] = 'Mean'
+df_blank = df_vmax.head(1).copy()
+df_blank.Subject=''
+df_blank.EL=0
+df_blank.ML=0
 
-df_vmax.plot(
+df_mean = df_vmax.head(1).copy()
+df_mean.Subject = 'Mean'
+df_mean.EL = df_vmax.EL.mean()
+df_mean.ML = df_vmax.ML.mean()
+
+df = pd.concat([df_vmax, df_blank, df_mean])
+
+df.plot(
     ax=plt.gca(),
     x='Subject',
     kind='bar',
@@ -130,9 +140,10 @@ df_vmax.plot(
     rot=0,
     width=0.75)
 
-plt.gca().set_xticklabels(list(np.arange(1,14,1)) + ['Mean'])
+plt.gca().set_xticklabels(list(np.arange(1,14,1)) + ['', 'Mean'])
 # plt.ylim(0,1000)
-plt.ylabel('Maximum Velocity (DVA/s)')
-plt.title(f'Maximum Velocity from {dict_task[task][0]} Main Sequence')
+plt.xlabel('Participant')
+plt.ylabel(r'Maximum Velocity ($^{\circ}$/s)')
+# plt.title(f'Maximum Velocity from {dict_task[task][0]} Main Sequence')
 
     

@@ -15,32 +15,33 @@ trackers = ['el', 'ml']
 my_dpi = 96
 plt.close('all')
 plt.rcParams.update({'font.size': 18})
-fig, axes = plt.subplots(len(speeds), len(trackers),
+fig, axes = plt.subplots(1, len(speeds),
                          figsize=(1600/my_dpi, 1000/my_dpi), dpi=my_dpi,
                          sharey=True, sharex=True)
 
 n_idx = 0
 for i, spd in enumerate(speeds):
+    ax = axes[i]
     for j, track in enumerate(trackers):
         df = pd.read_excel(f'./smooth_pursuit/raw_data/{track}_{spd}.xlsx')
+        df['avg'] = (df.l + df.r) / 2
+        df.avg = df.avg.values - df.avg.values[0]
         
-        ax = axes[i,j]
-        ax.text(-0.1, 1.05, f'({string.ascii_uppercase[n_idx].lower()})', transform=ax.transAxes, 
+        ax.text(-0.1, 1.05, f'({string.ascii_uppercase[i].lower()})', transform=ax.transAxes, 
                 size=20, weight='bold')
         
         fs = 250
         time = np.linspace(1, len(df), len(df)) / fs
-        ax.plot(time, df.r, 'r', label='right eye')
-        ax.plot(time, df.l, 'b', label='left eye')
+        ax.plot(time, df.avg, label=track.upper(), lw=3)
         
-        if i==2:
-            ax.set_xlabel('Time (sec)')
-        ax.set_ylabel(f'{track.upper()} Position (DVA)')
-        # ax.legend()
-        ax.set_ylim(-15,15)
+        ax.set_xlabel('Time (sec)')
+        ax.set_ylabel(f'Position (DVA)')
+        ax.legend(loc='upper center', bbox_to_anchor=(0.5, 1.05),
+                  ncol=2, fancybox=True, shadow=True)
+        ax.set_ylim(-10,10)
         
         n_idx += 1
         
-plt.suptitle('Raw Smooth Pursuit Data')
-handles, labels = ax.get_legend_handles_labels()
-fig.legend(handles, labels, loc='upper right')
+# plt.suptitle('Raw Smooth Pursuit Data')
+# handles, labels = ax.get_legend_handles_labels()
+# fig.legend(handles, labels, loc='upper right')

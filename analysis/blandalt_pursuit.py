@@ -10,14 +10,12 @@ from bland_altman import bland_altman_plot
 
 pio.renderers.default = "browser"
 
+#%% Create plot - Pursuit: Horizontal Gain
 task = 'hsp'
 thresh_coeff = 0.5
 df_data = pd.read_csv(f'./smooth_pursuit/gains_{task}.csv')
 df_data.drop(df_data[df_data.coeff_el < thresh_coeff].index, inplace=True)
 df_data.drop(df_data[df_data.coeff_ah < thresh_coeff].index, inplace=True)
-
-# print(1-(len(df_data)/2)/390)
-# df_data = df_data.loc[df_data.freq==0.1]
 
 fig = bland_altman_plot(
     data1=df_data.gain_el.values,
@@ -36,7 +34,7 @@ fig = bland_altman_plot(
 
 fig.show()
 
-#%%
+#%% Create plot - Pursuit: Vertical Gain
 task = 'vsp'
 thresh_coeff = 0.5
 df_data = pd.read_csv(f'./smooth_pursuit/gains_{task}.csv')

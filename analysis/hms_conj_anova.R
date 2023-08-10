@@ -19,6 +19,11 @@ bxp <- ggboxplot(
 )
 bxp
 
+stat.test <- tbl_data %>%
+  filter(tracker=="Ideal") %>%
+  t_test(diff ~ 1, mu = 0)
+stat.test
+
 # simple main effect (task)
 # Effect of task at each probe location
 one.way <- tbl_data %>%
